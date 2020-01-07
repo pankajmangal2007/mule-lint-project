@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="c2dfeaa1-f155-465b-aa58-c598733a0754" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="testproj1Flow" doc:id="7380f708-c86f-414c-a49a-a6cdffc97207" >
+		<http:listener doc:name="Listener" doc:id="9d6ff907-d28b-4555-a829-3877bdaec5af" config-ref="HTTP_Listener_config" path="cobol" outputMimeType="application/flatfile; schemapath=gl-records.ffd"/>
+		<ee:transform doc:name="Transform Message" doc:id="5b9bafd6-e8d0-4966-9638-64adf5e29005" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+
+payload.Data."GL-RECORD" map (payload01 , indexOfPayload01 ) ->{
+ "JournalFileData": {
+ 	"AccountingJournalData": {	
+ 		"CompanyReferenceID": {
+ 			//"wd:type": "UnderwritingCompany",
+    		"content":payload01.HEADER."W-BH-COMPANY"
+ 				},
+ 				
+ 				"AccountingDate": payload01.HEADER."W-BH-POST-DATE",
+ 				//"JournalEntryMemo" : "",
+ 				
+ 				 		"JournalEntryLineReplacementData": payload01.DETAIL map (payload02, indexOfPayload02) ->{
+ 			//"LineOrder": payload02."W-PT-TXN-CD",
+ 			"DebitCreditCode": payload02."W-PT-DRCR",
+ 			"LineCompanyReferenceID": {
+            "wd:type": "Company_Reference_ID",
+            "content": payload02."W-PT-CO-CD"
+          },
+          "LedgerAccountReferenceID": {
+            "wd:type": "GLAccountNbr",
+            "content": payload02."W-PT-ACCT-NBR"
+          },
+          //"Memo": "",
+          //"JournalLineExternalReferenceID": "",
+          "WorktagsReferenceID": [
+            {
+              "wd:type": "PaymentMethodCode",
+              "content": payload02."W-PT-MTHD-CD"
+              },
+              {
+              "wd:type": "RateManualCode",
+              "content": payload02."W-PT-RM-CD"
+            },
+            {
+              "wd:type": "LineCoverageCode",
+              "content": payload02."W-PT-LNCV-CD"
+            },
+            {
+              "wd:type": "CostCenterCode",
+              "content": payload02."W-PT-COST-CTR"
+            },
+            {
+              "wd:type": "StateCode",
+              "content": payload02."W-PT-ST-CD"
+            }
+          ],
+          "GLLine1Desc": payload02."W-PT-DESC-1",
+          "DebitCreditAmt": payload02."W-PT-DRCR-AMOUNT"
+              
+              }    		
+	
+		} 
+		
+	}  
+	
+}         ]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="testproj1Flow1" doc:id="e79b989d-9c34-4b69-bb20-be0772e29df7" >
+		<http:listener doc:name="Listener" doc:id="3430f85f-5dea-4bb8-9aba-e85fa2c5a107" config-ref="HTTP_Listener_config" path="new1" outputMimeType="application/flatfile; schemapath=gl-records.ffd"/>
+		<ee:transform doc:name="Transform Message" doc:id="ab3c770b-084c-4f84-89b0-5c78351ead4f" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+
+output application/json
+---	
+payload.Data."GL-RECORD" map (payload01 , indexOfPayload01 ) ->{
+	
+	(payload01.HEADER."W-BH-COMPANY") : {
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":""
+		
+	},
+	
+	(payload01.HEADER."W-BH-POST-DATE"):{
+		
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":""
+		
+		
+	},
+	
+	(payload01.HEADER."W-BH-REVR-DATE"):{
+		
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":"",
+		"GLJournalLine":""
+		
+		
+	}  
+	
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="testproj1Flow2" doc:id="96469671-ba17-4d68-ac92-c14baf86779e" >
+		<http:listener doc:name="Listener" doc:id="b826e982-a55d-4b1b-b424-7f9540e732d3" config-ref="HTTP_Listener_config" path="new2" outputMimeType='application/flatfile; schemapath=gl-records.ffd'/>
+		<ee:transform doc:name="Transform Message" doc:id="e2048eb5-a7d3-45bb-aef1-905de8973b16" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var debitcredit = (dc) -> if (dc == '10') 'Debit' else 'Credit'
+---
+
+"GLHeaders": payload.Data."GL-RECORD" map (payload01, index01) -> {
+	
+	"StartDate":payload01.HEADER."W-BH-POST-DATE" as Date {format: 'MMddyy'} as String {format:'MM/dd/yyyy'},
+	"EndDate":payload01.HEADER."W-BH-REVR-DATE",
+	"TransactionCode":payload01.HEADER."W-BH-TXN-CD",
+	"GLDetails": payload01.DETAIL map (payload02, index02) -> {
+		
+		"TransactionCode":"PT",
+		"DebitCredit":debitcredit(payload02."W-PT-DRCR"),
+		"Amount":payload02."W-PT-DRCR-AMOUNT"
+		
+	}
+}
+	
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="testproj1Flow3" doc:id="8e3825aa-3653-4a64-96ab-f38c1b8eab72" >
+		<http:listener doc:name="Listener" doc:id="a8d2689d-8a38-41b1-9de8-5244e194d482" config-ref="HTTP_Listener_config" path="test1" outputMimeType="application/flatfile; schemapath=gl-records_test.ffd"/>
+	</flow>
+</mule>

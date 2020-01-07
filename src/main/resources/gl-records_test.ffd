@@ -1,0 +1,63 @@
+form: FLATFILE
+structures:
+- id: 'MultiSegment'
+  name: MultiSegment
+  tagStart: 0
+  tagLength: 2
+  data:
+  - groupId: 'Data'
+    items:
+    - groupId: 'GL-RECORD'
+      count: '>1'
+      items:
+        - { idRef: 'HEADER', count: 1 }
+        - { idRef: 'DETAIL', count: '>1' }
+segments:
+- id: 'HEADER'
+  name: HEADER
+  tag: 'BH'
+  values:
+  - { name: 'W-BH-TXN-CD', type: String, length: 2 }
+  - { name: 'W-BH-COMPANY', type: String, length: 2 }
+  - { name: 'FILLER1', type: String, length: 22 }
+  - { name: 'W-BH-POST-DATE', type: String, length: 6 }
+  - { name: 'FILLER2', type: String, length: 5 }
+  - { name: 'W-BH-REVR-DATE', type: String, length: 6 }
+  - { name: 'FILLER3', type: String, length: 37 }
+  - { name: 'W-BH-OPRID', type: String, length: 8 }
+  - { name: 'FILLER4', type: String, length: 92 }
+- id: 'DETAIL'
+  name: DETAIL
+  tag: 'PT'
+  values:
+  - { name: 'W-PT-TXN-CD', type: String, length: 2 }
+  - { name: 'FILLER5', type: String, length: 5 }
+  - { name: 'W-PT-DRCR', type: String, length: 2 }
+  - { name: 'W-PT-CO-CD', type: String, length: 2 }
+  - { name: 'FILLER6', type: String, length: 2 }
+  - { name: 'W-PT-ACCT-NBR', type: String, length: 6 }
+  - { name: 'FILLER7', type: String, length: 1 }
+  - { name: 'W-PT-MTHD-CD', type: String, length: 1 }
+  - { name: 'W-PT-RM-CD', type: String, length: 2 }
+  - { name: 'FILLER8', type: String, length: 2 }
+  - { name: 'W-PT-LNCV-CD', type: String, length: 4 }
+  - { name: 'W-PT-IC-CD', type: String, length: 2 }
+  - { name: 'W-PT-COST-CTR', type: String, length: 5 }
+  - { name: 'W-PT-ST-CD', type: String, length: 2 }
+  - { name: 'W-PT-SBST-CD', type: String, length: 2 }
+  - { name: 'FILLER9', type: String, length: 3 }
+  - name: 'W-PT-SRCE-TR'
+    values:
+    - { name: 'W-PT-SRCE-CD', type: String, length: 3 }
+    - { name: 'FILLER10', type: String, length: 5 }
+  - { name: 'FILLER11', type: String, length: 2 }
+  - name: 'W-PT-POST-DATE'
+    values:
+    - { name: 'W-PT-POST-DATE-MM', type: String, length: 2 }
+    - { name: 'W-PT-POST-DATE-DD', type: String, length: 2 }
+    - { name: 'W-PT-POST-DATE-YY', type: String, length: 2 }
+  - { name: 'W-PT-DRCR-AMOUNT', type: Decimal, length: 11, format: { implicit: 2 } }
+  - { name: 'FILLER12', type: String, length: 1 }
+  - { name: 'W-PT-DESC-1', type: String, length: 30 }
+  - { name: 'W-PT-DESC-2', type: String, length: 12 }
+  - { name: 'FILLER13', type: String, length: 65 }

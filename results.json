@@ -1,0 +1,38 @@
+{
+    "version": "0.0.2",
+    "findings": [
+        {
+            "file": "C:\\Users\\Pankaj Mangal\\AnypointStudio\\studio-workspace-7\\testproj1\\src\\main\\mule\\testproj1.xml",
+            "messages": [
+                {
+                    "message": "Flow testproj1Flow is not camelCased",
+                    "category": "Casing",
+                    "lineNumber": 11,
+                    "element": "{http://www.mulesoft.org/schema/mule/core}flow"
+                },
+                {
+                    "message": "Flow testproj1Flow1 is not camelCased",
+                    "category": "Casing",
+                    "lineNumber": 78,
+                    "element": "{http://www.mulesoft.org/schema/mule/core}flow"
+                },
+                {
+                    "message": "Flow testproj1Flow2 is not camelCased",
+                    "category": "Casing",
+                    "lineNumber": 154,
+                    "element": "{http://www.mulesoft.org/schema/mule/core}flow"
+                },
+                {
+                    "message": "Flow testproj1Flow3 is not camelCased",
+                    "category": "Casing",
+                    "lineNumber": 181,
+                    "element": "{http://www.mulesoft.org/schema/mule/core}flow"
+                }
+            ],
+            "aggregations": {
+                "loggerCount": 0,
+                "flowCount": 4
+            }
+        }
+    ]
+}

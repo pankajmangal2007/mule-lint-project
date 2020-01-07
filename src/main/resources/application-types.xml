@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="glrecords" format="flatfile">
+      <types:shape format="flatfile" element="MultiSegment" location="gl-records.ffd"/>
+    </types:type>
+    <types:type name="gl-recordsq" format="java">
+      <types:shape format="raml"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#5b9bafd6-e8d0-4966-9638-64adf5e29005">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="glrecords"/>
+          <types:attributes type="glrecords"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#ab3c770b-084c-4f84-89b0-5c78351ead4f">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="glrecords"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#e2048eb5-a7d3-45bb-aef1-905de8973b16">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="glrecords"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
